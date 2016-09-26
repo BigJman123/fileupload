@@ -6,13 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use Storage;
-
-use App\Upload;
-
-use Uuid;
-
-class UploadController extends Controller
+class FileDownloadController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,7 +15,7 @@ class UploadController extends Controller
      */
     public function index()
     {
-        return view('upload.index');
+        //
     }
 
     /**
@@ -31,10 +25,19 @@ class UploadController extends Controller
      */
     public function create()
     {
-        return view ('upload.fileupload');
+        //
     }
 
-
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
 
     /**
      * Display the specified resource.
@@ -68,30 +71,6 @@ class UploadController extends Controller
     public function update(Request $request, $id)
     {
         //
-    }
-    
-    public function fileUpload(Request $request) 
-    {
-        $file = $request->file;
-        
-        $name = time() . $file->getClientOriginalName();
-        
-        $file->move('uploaded/files', $name);
-
-        $random = str_random(6);
-
-        $hash = Uuid::generate();
-
-        $upload = new Upload([
-                'id'              => $request->get('id'),
-                'file_name'       => $name,
-                'password'        => $random,
-                'hash'            => $hash,
-            ]);
-
-        $upload->save();
-
-        return response()->json('Success');
     }
 
     /**

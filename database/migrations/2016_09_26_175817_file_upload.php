@@ -12,12 +12,12 @@ class FileUpload extends Migration
      */
     public function up()
     {
-        Schema::create('upload', function (Blueprint $table) {
+        Schema::create('uploads', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('url')->unique();
-            $table->string('password')->unique();
-            $table->rememberToken();
+            $table->string('file_name');
+            $table->string('password');
+            $table->string('hash');
+            $table->timestamp('expires_at');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class FileUpload extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('uploads');
     }
 }
