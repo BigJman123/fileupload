@@ -3,8 +3,9 @@
 Route::Auth();
 Route::get('/', 'UploadController@index');
 Route::get('upload', 'UploadController@create');
+Route::get('upload/{id}', ['uses' => 'UploadController@show', 'as' => 'upload.show']);
 Route::post('/upload', ['uses' => 'UploadController@store', 'as' => 'upload.store']);
-Route::get('/download', 'DownloadController@fileDownload');
+Route::get('/download/{hash}', ['uses' => 'DownloadController@show', 'as' => 'download.show']);
 
 
 

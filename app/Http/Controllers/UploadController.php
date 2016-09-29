@@ -31,7 +31,7 @@ class UploadController extends Controller
      */
     public function create()
     {
-        return view ('upload.fileupload');
+        return view ('upload.store');
     }
 
 
@@ -44,6 +44,11 @@ class UploadController extends Controller
      */
     public function show($id)
     {
+        $upload = Upload::findOrFail($id);
+        
+        $hash = route('download.show', $upload->hash);
+
+        return view('upload.show', ['upload' => Upload::findOrFail($id)], ['hash' => route('download.show', $upload->hash)]);
         // find upload
         // return a view
         // view should show the URL to get to the download
@@ -90,13 +95,12 @@ class UploadController extends Controller
                 'file_name'       => $name,
                 'password'        => $random,
                 'hash'            => $hash,
+                'expires_at'      => $request->get('date')
             ]);
 
         $upload->save();
 
-        // return redirect()->route('upload.show', $upload->id);
-
-        return response()->json('Success');
+        return redirect()->route('upload.show', $upload->id);
     }
 
     /**
