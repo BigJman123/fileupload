@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-class FileDownloadController extends Controller
+class DownloadController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -71,6 +71,11 @@ class FileDownloadController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+    public function fileDownload()
+    {
+        return view('download.filedownload');
     }
 
     /**

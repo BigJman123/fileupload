@@ -1,13 +1,10 @@
 <?php
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::Auth();
 Route::get('/', 'UploadController@index');
 Route::get('upload', 'UploadController@create');
 Route::post('/upload', 'UploadController@fileUpload');
+Route::get('/download', 'DownloadController@fileDownload');
 
 
 
@@ -35,6 +32,3 @@ Route::post('/upload', 'UploadController@fileUpload');
    
 //    var_dump($url);
 // });
-Route::auth();
-
-Route::get('/home', 'HomeController@index');
