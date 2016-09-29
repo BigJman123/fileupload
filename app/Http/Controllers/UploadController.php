@@ -44,7 +44,10 @@ class UploadController extends Controller
      */
     public function show($id)
     {
-        //
+        // find upload
+        // return a view
+        // view should show the URL to get to the download
+        // show the password that they need to send along to view it
     }
 
     /**
@@ -70,9 +73,9 @@ class UploadController extends Controller
         //
     }
     
-    public function fileUpload(Request $request) 
+    public function store(Request $request) 
     {
-        $file = $request->file;
+        $file = $request->file('file');
         
         $name = time() . $file->getClientOriginalName();
         
@@ -90,6 +93,8 @@ class UploadController extends Controller
             ]);
 
         $upload->save();
+
+        // return redirect()->route('upload.show', $upload->id);
 
         return response()->json('Success');
     }

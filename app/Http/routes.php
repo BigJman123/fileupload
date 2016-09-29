@@ -3,14 +3,15 @@
 Route::Auth();
 Route::get('/', 'UploadController@index');
 Route::get('upload', 'UploadController@create');
-Route::post('/upload', 'UploadController@fileUpload');
+Route::post('/upload', ['uses' => 'UploadController@store', 'as' => 'upload.store']);
 Route::get('/download', 'DownloadController@fileDownload');
 
 
 
 
-
-
+// Route::get('/download/{hash}', ['uses' => 'DownloadController@show', 'as' => 'download.show'])
+	// in download controller do Upload::findByHash($hash), then let them download it or whatever
+	// or for now just say YES THE FILE EXISTS
 
 
 
