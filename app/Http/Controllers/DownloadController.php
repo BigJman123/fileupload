@@ -3,41 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
+use App\Upload;
 
 class DownloadController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+ 
 
     /**
      * Display the specified resource.
@@ -45,47 +15,31 @@ class DownloadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($hash)
     {
-        //
+        $upload = Upload::findByHash($hash);
+
+        return view('download.show')->with(['upload' => $upload]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function download(Request $request)
     {
-        //
+        // dd($request->input());
+
+        $upload = Upload::where('hash', '=', $request->hash)->where('password', '=', $request->password)->first();
+
+        $path = public_path('uploaded/files/' . $upload->file_name);
+
+        return response()->download($path);
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    public function fileDownload()
-    {
-        return view('download.filedownload');
-    }
+    // TODO: create a new download method
+    // this method needs to accept a password and a hash
+    // then you should check to see if an active upload is available
+    // that has the given hash, and is active, and has the password that has
+    // been provided
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    // it all of that is true, then for now just dd($upload) or whatever
 }

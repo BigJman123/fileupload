@@ -6,7 +6,8 @@ Route::get('upload', 'UploadController@create');
 Route::get('upload/{id}', ['uses' => 'UploadController@show', 'as' => 'upload.show']);
 Route::post('/upload', ['uses' => 'UploadController@store', 'as' => 'upload.store']);
 Route::get('/download/{hash}', ['uses' => 'DownloadController@show', 'as' => 'download.show']);
-
+Route::post('download', ['uses' => 'DownloadController@download', 'as' => 'download.download']);
+// TODO: create a new POST route that points to DownloadController@download and is named download.download
 
 
 
