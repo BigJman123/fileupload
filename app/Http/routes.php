@@ -1,12 +1,16 @@
 <?php
 
-Route::Auth();
-Route::get('/', 'UploadController@index');
-Route::get('upload', 'UploadController@create');
-Route::get('upload/{id}', ['uses' => 'UploadController@show', 'as' => 'upload.show']);
-Route::post('/upload', ['uses' => 'UploadController@store', 'as' => 'upload.store']);
+Route::group(['middleware' => 'auth'], function() {
+	Route::Auth();
+	Route::get('upload', 'UploadController@index');
+	Route::get('upload/create', 'UploadController@create');
+	Route::get('upload/{id}', ['uses' => 'UploadController@show', 'as' => 'upload.show']);
+	Route::post('/upload', ['uses' => 'UploadController@store', 'as' => 'upload.store']);
+});
+
 Route::get('/download/{hash}', ['uses' => 'DownloadController@show', 'as' => 'download.show']);
 Route::post('download', ['uses' => 'DownloadController@download', 'as' => 'download.download']);
+
 // TODO: create a new POST route that points to DownloadController@download and is named download.download
 
 
@@ -35,3 +39,6 @@ Route::post('download', ['uses' => 'DownloadController@download', 'as' => 'downl
    
 //    var_dump($url);
 // });
+Route::auth();
+
+Route::get('/home', 'HomeController@index');

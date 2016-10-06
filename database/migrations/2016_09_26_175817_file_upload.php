@@ -14,6 +14,7 @@ class FileUpload extends Migration
     {
         Schema::create('uploads', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
             $table->string('file_name');
             $table->string('password');
             $table->string('hash');

@@ -2,6 +2,11 @@
 
 @section('content')
 
-    <h2><a href="/upload">Upload a File!</a></h2>
+	@foreach($uploads as $upload)
+		
+		<p>{{ $upload->password}}</p>
+		
+	@endforeach()
+	
 
 @stop

@@ -12,6 +12,7 @@
 		<div class="form-row">
 			<label>
 				<span>
+					<input type="hidden" name="hash" value="{{$upload->hash}}" />
 					<input type="text" name="password"  required>
 				</span>
 			</label>

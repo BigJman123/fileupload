@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
-
-use Storage;
-
 use App\Upload;
-
+use Storage;
 use Uuid;
+use Hash;
+use Auth;
 
 class UploadController extends Controller
 {
@@ -21,7 +19,15 @@ class UploadController extends Controller
      */
     public function index()
     {
-        return view('upload.index');
+        // where user_id = Auth::id()
+
+        $uploads = Upload::where('user_id', Auth::id())->get();
+
+        
+
+
+
+        return view('upload.index')->with(['uploads' => $uploads]);
     }
 
     /**
@@ -86,14 +92,15 @@ class UploadController extends Controller
         
         $file->move('uploaded/files', $name);
 
-        $random = str_random(6);
+        $password = str_random(6);
 
         $hash = Uuid::generate();
 
         $upload = new Upload([
                 'id'              => $request->get('id'),
+                'user_id'         => Auth::id(),
                 'file_name'       => $name,
-                'password'        => $random,
+                'password'        => $password,
                 'hash'            => $hash,
                 'expires_at'      => $request->get('date')
             ]);

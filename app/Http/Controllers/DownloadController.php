@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Upload;
+use Hash;
 
 class DownloadController extends Controller
 {
@@ -26,7 +27,9 @@ class DownloadController extends Controller
     {
         // dd($request->input());
 
-        $upload = Upload::where('hash', '=', $request->hash)->where('password', '=', $request->password)->first();
+        $upload = Upload::where('hash', '=', $request->hash)
+            ->where('password', '=', $request->password)
+            ->firstOrFail();
 
         $path = public_path('uploaded/files/' . $upload->file_name);
 

@@ -36,6 +36,14 @@
                     <a class="navbar-brand" href="{{ url('/') }}">
                         Photot
                     </a>
+                    @if (Auth::check())
+                        <a class="navbar-brand" href="{{ url('/upload/create') }}">
+                            New Upload
+                        </a>
+                        <a class="navbar-brand" href="{{ url('/upload') }}">
+                            My Uploads
+                        </a>
+                    @endif
 
                 </div>
 
